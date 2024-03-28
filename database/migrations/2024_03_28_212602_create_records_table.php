@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('book_id');
-            $table->timestamps('borrowed_date');
-            $table->timestamps('returned_date');
+            $table->dateTime('borrowed_date');
+            $table->dateTime('returned_date');
             $table->tinyInteger('status');
             $table->timestamps();
 
