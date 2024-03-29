@@ -22,7 +22,8 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="header navbar-nav ms-auto">
-                  <a class="nav-link active" href="{{ route('home.index') }}">Books</a>
+                    <a class="nav-link active" href="{{ route('home.admin.index') }}">Books</a>
+                    <a class="nav-link active" href="{{ route('home.admin.showAdd') }}">Add Book</a>
               </div>
           </div>
       </div>

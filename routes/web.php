@@ -13,8 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home.index');
 
-Route::get('/login', 'App\Http\Controllers\HomeController@login')->name('home.login');
+Route::post('/borrow/{id}', 'App\Http\Controllers\HomeController@borrow')->name('home.borrow');
+Route::post('/return/{id}', 'App\Http\Controllers\HomeController@return')->name('home.return');
+
+Route::get('/admin', 'App\Http\Controllers\Admin\AdminHomeController@index')->name('home.admin.index');
+Route::get('/admin/add', 'App\Http\Controllers\Admin\AdminHomeController@showAdd')->name('home.admin.showAdd');
+Route::get('/admin/manage/{id}', 'App\Http\Controllers\Admin\AdminHomeController@showManage')->name('home.admin.showManage');
+
+Route::post('/admin/add', 'App\Http\Controllers\Admin\AdminBookController@addBook')->name('home.admin.add');
+Route::post('/admin/books/{id}/manage', 'App\Http\Controllers\Admin\AdminBookController@manageBook')->name('home.admin.manage');
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
