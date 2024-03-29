@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Book;
 
 class HomeController extends Controller 
 {
@@ -13,7 +14,7 @@ class HomeController extends Controller
         // unset($_SESSION['username']);
 
         $viewData = array();
-        $viewData['data'] = json_encode(array('book1' => array('id' => 1, 'isbn' => '0385121679', 'name' => 'The Shining', 'category' => 'horror', 'description' => 'horror book', 'quantity' => 5, 'author' => 'Stephen King')));
+        $viewData['data'] = Book::all();
 
         return view('home.index')->with('viewData', $viewData);
     }

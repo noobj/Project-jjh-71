@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('title');
             $table->unsignedBigInteger('category_id');
             $table->text('description');
-            $table->integer('quatity')->unsigned();
+            $table->integer('quantity')->unsigned();
             $table->string('author');
             $table->string('isbn');
             $table->timestamps();

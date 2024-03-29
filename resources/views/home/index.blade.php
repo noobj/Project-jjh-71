@@ -5,22 +5,22 @@
             <div class="data">
                 <h2 class="book-table-title">Books in Library</h2>
                 @if (isset($_GET['action']) && $_GET['action'] == 'detail')
-                    @foreach (json_decode($viewData['data'], true) as $book)
-                        @if ($book['id'] == $_GET['id'])
+                    @foreach ($viewData['data'] as $book)
+                        @if ($book->getId() == $_GET['id'])
                         <div class="detail-board">
                             <div class="detail-header">
-                                <h3 class="detail-name"><strong>{{$book['name']}}</strong></h3>
+                                <h3 class="detail-name"><strong>{{$book->getName()}}</strong></h3>
                                 <a class="detail-cancel" href="{{ route('home.index') }}">X</a>
                             </div>
                             
                             <table>
                                 <tr>
-                                    <td class="detail-image"><img class="detail-img" src={{'https://covers.openlibrary.org/b/isbn/' . $book['isbn'] . '.jpg'}} alt={{$book['name']}}></td>
+                                    <td class="detail-image"><img class="detail-img" src={{'https://covers.openlibrary.org/b/isbn/' . $book->getIsbn() . '.jpg'}} alt={{$book->getName()}}></td>
                                     <td class="book-detail">
-                                        <strong>Category:</strong> {{$book['category']}}<br>
-                                        <strong>Author:</strong> {{$book['author']}}<br>
-                                        <strong>Description:</strong> {{$book['description']}}<br>
-                                        <strong>Quantity left for borrow:</strong> {{$book['quantity']}}
+                                        <strong>Category:</strong> {{$book->getCategory()}}<br>
+                                        <strong>Author:</strong> {{$book->getAuthor()}}<br>
+                                        <strong>Description:</strong> {{$book->getDesc()}}<br>
+                                        <strong>Quantity left for borrow:</strong> {{$book->getQuantity()}}
                                     </td>
                                 </tr>
                             </table>
@@ -40,21 +40,21 @@
                         @endif
                     </tr></thead>
                     <tbody>
-                        @foreach (json_decode($viewData['data'], true) as $book)
+                        @foreach ($viewData['data'] as $book)
                             <tr>
-                                <td class="table-cover"><span><img src={{'https://covers.openlibrary.org/b/isbn/' . $book['isbn'] . '.jpg'}} alt={{$book['name']}}></span></td>
+                                <td class="table-cover"><span><img src={{'https://covers.openlibrary.org/b/isbn/' . $book->getIsbn() . '.jpg'}} alt={{$book->getName()}}></span></td>
                                 <td>
-                                    <div class='author'><strong>{{$book['name']}}</strong></div>
+                                    <div class='author'><strong>{{$book->getName()}}</strong></div>
                                     
-                                    <div>- {{$book['author']}} -</div>
+                                    <div>- {{$book->getAuthor()}} -</div>
                                 </td>
-                                <td>{{$book['quantity']}}</td>
+                                <td>{{$book->getQuantity()}}</td>
                                 @if (isset($_SESSION['username']))
                                     <td><span class='detail'>
-                                        <a href='?action=detail&id={{$book['id']}}'>Detail</a>
+                                        <a href='?action=detail&id={{$book->getId()}}'>Detail</a>
                                     </span></td>
                                     <td><span>
-                                        <form action="{{ route('home.borrow', $book['id'])}}" method="POST">
+                                        <form action="{{ route('home.borrow', $book->getId())}}" method="POST">
                                             @csrf
                                             <button class="borrow">Borrow</button>
                                         </form>
@@ -77,16 +77,16 @@
                     <th>Return</th>
                 </tr></thead>
                 <tbody>
-                    @foreach (json_decode($viewData['data'], true) as $book)
+                    @foreach ($viewData['data'] as $book)
                         <tr>
-                            <td class="table-cover"><span><img src={{'https://covers.openlibrary.org/b/isbn/' . $book['isbn'] . '.jpg'}} alt={{$book['name']}}></span></td>
+                            <td class="table-cover"><span><img src={{'https://covers.openlibrary.org/b/isbn/' . $book->getIsbn() . '.jpg'}} alt={{$book->getName()}}></span></td>
                             <td>
-                                <div class='author'><strong>{{$book['name']}}</strong></div>
+                                <div class='author'><strong>{{$book->getName()}}</strong></div>
                                     
-                                <div>- {{$book['author']}} -</div>
+                                <div>- {{$book->getAuthor()}} -</div>
                             </td>
                             <td><span>
-                                <form action="{{ route('home.return', $book['id'])}}" method="POST">
+                                <form action="{{ route('home.return', $book->getId())}}" method="POST">
                                     @csrf
                                     <button class='detail'>Return</button>
                                 </form>
