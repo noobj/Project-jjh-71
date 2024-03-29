@@ -34,7 +34,7 @@
                         <th class="table-cover">Cover</th>
                         <th>Title and Author</th>
                         <th>Quantity</th>
-                        @if (isset($_SESSION['username']))
+                        @if (Auth::user() && Auth::user()->getRole() == 'client')
                             <th>Details</th>
                             <th>Borrow</th>
                         @endif
@@ -49,7 +49,7 @@
                                     <div>- {{$book['author']}} -</div>
                                 </td>
                                 <td>{{$book['quantity']}}</td>
-                                @if (isset($_SESSION['username']))
+                                @if (Auth::user() && Auth::user()->getRole() == 'client')
                                     <td><span class='detail'>
                                         <a href='?action=detail&id={{$book['id']}}'>Detail</a>
                                     </span></td>
@@ -67,7 +67,7 @@
             </div>
         </section>
         <section class="side">
-            @if (isset($_SESSION['username']))
+            @if (Auth::user() && Auth::user()->getRole() == 'client')
             <div class="data">
                 <h2 class="book-table-title borrow-title">Books borrowing by you</h2>
             <table class="book-table borrow-table">

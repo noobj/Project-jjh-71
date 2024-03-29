@@ -6,7 +6,7 @@
         <p style="text-align: center; font-size: 1.2em; color: red">There is no books in our library right now. Please add a book</p>
     @else
     @foreach (json_decode($viewData['data'], true) as $book)
-    <div class="card">
+    <div class="admin-book">
         <img src={{'https://covers.openlibrary.org/b/isbn/' . $book['isbn'] . '.jpg'}} alt={{$book['name']}}></img>
         <div class="book-info">
             <h2 class="book-title">{{$book['name']}}</h2>
