@@ -24,6 +24,11 @@
               <div class="header navbar-nav ms-auto">
                     <a class="nav-link active" href="{{ route('home.admin.index') }}">Books</a>
                     <a class="nav-link active" href="{{ route('home.admin.showAdd') }}">Add Book</a>
+                    <form id="logout" action="{{ route('logout') }}" method="POST">
+                        @csrf
+                            <a role="button" class="nav-link active" id="logout"
+                                      onclick="getElementById('logout').submit()">Logout</a>
+                    </form>
               </div>
           </div>
       </div>

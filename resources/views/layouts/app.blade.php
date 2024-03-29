@@ -23,8 +23,20 @@
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="header navbar-nav ms-auto">
                   <a class="nav-link active" href="{{ route('home.index') }}">Books</a>
+                  @guest
+                  <a class="nav-link active" href="{{ route('login') }}">Login</a>
+                  <a class="nav-link active" href="{{ route('register') }}">Register</a>
+                  @else
+                      <form id="logout" action="{{ route('logout') }}" method="POST">
+                  @csrf
+                      <a role="button" class="nav-link active" id="logout"
+                            onclick="getElementById('logout').submit()">Logout</a>
+                      </form>
+          @endguest
               </div>
           </div>
+          
+          
       </div>
   </nav>
     
