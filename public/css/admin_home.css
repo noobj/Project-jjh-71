@@ -14,7 +14,7 @@
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 }
 
-.card {
+.admin-book {
     background-color: ghostwhite !important;
     width: 300px;
     border: 1px solid #e0e0e0;
@@ -26,7 +26,7 @@
     flex-direction: column;
 }
 
-.card img {
+.admin-book img {
     padding: 10px;
     width: auto;
     height: 200px; 
@@ -36,7 +36,7 @@
     margin: 0 auto;
 }
 
-.card .book-info {
+.admin-book .book-info {
     padding: 20px;
     display: flex; 
     flex-direction: column; 
@@ -44,20 +44,20 @@
     text-align: center;
 }
 
-.card .book-info h2 {
+.admin-book .book-info h2 {
     margin-top: 0;
     font-size: 1.3rem;
     color: #333;
     flex-grow: 1;
 }
 
-.card .book-info p {
+.admin-book .book-info p {
     margin: 10px 0;
     font-size: 0.9rem;
     color: #666;
 }
 
-.card .manage-btn {
+.admin-book .manage-btn {
     display: inline-block;
     padding: 10px 20px;
     background-color: #f90;
@@ -70,6 +70,6 @@
     transition: background-color 0.3s ease;
 }
 
-.card .manage-btn:hover {
+.admin-book .manage-btn:hover {
     background-color: #f60;
 }
