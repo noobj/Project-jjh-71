@@ -1,0 +1,23 @@
+.add-title {
+    text-align: center;
+    margin: 20px;
+}
+
+.btn-add {
+    align-items: center;
+    width: 20%;
+}
+
+.add-div {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+}
+
+.title-label {
+    width: 8.333333333% !important;
+}
+
+.title-input {
+    width: 91.666666667% !important;
+}

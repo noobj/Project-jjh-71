@@ -1,0 +1,10 @@
+.submit-div {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+.btn-update, .btn-delete {
+    align-items: center;
+}

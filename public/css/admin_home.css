@@ -1,0 +1,75 @@
+.admin-welcome {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.home-container {
+    width: 90%;
+    margin: 1.1em auto;
+    padding-top: 10px;
+    
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+.card {
+    background-color: ghostwhite !important;
+    width: 300px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.card img {
+    padding: 10px;
+    width: auto;
+    height: 200px; 
+    object-fit:fill; 
+    display: block;
+    border-bottom: 1px solid #e0e0e0;
+    margin: 0 auto;
+}
+
+.card .book-info {
+    padding: 20px;
+    display: flex; 
+    flex-direction: column; 
+    height: 100%; 
+    text-align: center;
+}
+
+.card .book-info h2 {
+    margin-top: 0;
+    font-size: 1.3rem;
+    color: #333;
+    flex-grow: 1;
+}
+
+.card .book-info p {
+    margin: 10px 0;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.card .manage-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #f90;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.card .manage-btn:hover {
+    background-color: #f60;
+}
