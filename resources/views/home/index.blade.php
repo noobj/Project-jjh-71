@@ -42,7 +42,7 @@
                     <tbody>
                         @foreach ($viewData['data'] as $book)
                             <tr>
-                                <td class="table-cover"><span><img src={{'https://covers.openlibrary.org/b/isbn/' . $book->getIsbn() . '.jpg'}} alt={{$book->getName()}}></span></td>
+                                <td class="table-cover"><span><img src="{{'https://covers.openlibrary.org/b/isbn/' . $book->getIsbn() . '.jpg'}}" alt="{{$book->getName()}}"></span></td>
                                 <td>
                                     <div class='author'><strong>{{$book->getName()}}</strong></div>
                                     
