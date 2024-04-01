@@ -11,10 +11,6 @@ use Illuminate\Support\Facades\Auth;
 class AdminHomeController extends Controller
 {
     public function index() {
-        session_start();
-        $_SESSION['username'] = 'admin';
-        // unset($_SESSION['username']);
-
         $viewData = array();
         $viewData['data'] = Book::all();
         return view('home.admin.index')->with('viewData', $viewData);

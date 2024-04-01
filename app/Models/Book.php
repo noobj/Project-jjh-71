@@ -8,6 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Book extends Model
 {
     use HasFactory;
+    public static function validate($request){
+        $request->validate([
+            "title" => "required|max:255",
+            "description" => "required",
+            "isbn" => "required|numeric|gt:0",
+            "quantity" => "required|numeric",
+            "category" => "required"
+        ]);
+    }
 
     public function category()
     {
