@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Book;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,8 +14,13 @@ class AdminBookController extends Controller
         return back();
     }
 
-    public function manageBook() {  //switch case "action" & update or delete
+    public function manageBook(Request $request, $id) {  //switch case "action" & update or delete
+        if ($request->input('action') == 'update') {
+            Book::validate($request);
+        }
+        else if ($request->input('action') == 'delete') {
 
+        }
         return redirect()->route('home.admin.index');
     }
 }
