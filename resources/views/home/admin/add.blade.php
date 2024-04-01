@@ -6,7 +6,7 @@
     <div class="card-body">
         @if($errors->any())
         <ul class="alert alert-danger list-unstyled">
-            @foreach($errors as $error)
+            @foreach($errors->all() as $error)
             <li>- {{ $error }}</li>
             @endforeach
         </ul>
@@ -23,21 +23,11 @@
                     </div>
                 </div>
             </div>
-            </div>
-            <div class="row">
             <div class="col">
                 <div class="mb-3 row">
                     <label class="col-lg-2 col-md-6 col-sm-12 col-form-label">ISBN: </label>
                     <div class="col-lg-10 col-md-6 col-sm-12">
                         <input name="isbn" value="{{ old('isbn') }}" type="text" class="form-control">
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="mb-3 row">
-                    <label class="col-lg-2 col-md-6 col-sm-12 col-form-label">Author:</label>
-                    <div class="col-lg-10 col-md-6 col-sm-12">
-                        <input name="author" value="{{ old('author') }}" type="text" class="form-control">
                     </div>
                 </div>
             </div>
@@ -49,7 +39,11 @@
                         <div class="col-lg-10 col-md-6 col-sm-12">
                             <select name="category" class="form-control">
                                 @foreach ($viewData['categories'] as $category)
-                                    <option value={{$category}}>{{$category}}</option>
+                                    <option value="{{$category->getId()}}"
+                                        @if ($category->getId() == old('category'))
+                                        selected
+                                        @endif
+                                    >{{$category->getName()}}</option>
                                 @endforeach
                             </select>
                         </div>

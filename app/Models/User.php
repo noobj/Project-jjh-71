@@ -35,7 +35,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'balance',
     ];
 
     /**
@@ -107,15 +106,6 @@ class User extends Authenticatable
         $this->attributes['role'] = $role;
     }
 
-    public function getBalance()
-    {
-        return $this->attributes['balance'];
-    }
-
-    public function setBalance($balance)
-    {
-        $this->attributes['balance'] = $balance;
-    }
 
     public function getCreatedAt()
     {
