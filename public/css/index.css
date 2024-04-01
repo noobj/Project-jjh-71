@@ -2,7 +2,7 @@ body {
     margin: auto;
 }
 
-.header > a {
+.header  a {
     margin-left: 50px;
     display: block;
 }
