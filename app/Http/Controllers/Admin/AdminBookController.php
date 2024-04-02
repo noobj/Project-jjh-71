@@ -9,9 +9,19 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminBookController extends Controller
 {
-    public function addBook() {     //add a new book
+    public function addBook(Request $request) {
+        // TODO: validation input
 
-        return back();
+
+        // TODO: fetch author name from api
+        return Book::create([
+            'title' => $request->post('name'),
+            'description' => $request->post('description'),
+            'isbn' => $request->post('isbn'),
+            'author' => 'Fetched from API',
+            'quantity' => $request->post('quantity'),
+            'category_id' => $request->post('category'),
+        ]);
     }
 
     public function manageBook(Request $request, $id) {  //switch case "action" & update or delete
