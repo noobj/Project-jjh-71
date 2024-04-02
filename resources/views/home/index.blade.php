@@ -15,12 +15,12 @@
                             
                             <table>
                                 <tr>
-                                    <td class="detail-image"><img class="detail-img" src={{'https://covers.openlibrary.org/b/isbn/' . $book->getIsbn() . '.jpg'}} alt={{$book->getName()}}></td>
+                                    <td class="detail-image"><img class="detail-img" src="{{'https://covers.openlibrary.org/b/isbn/' . $book->getIsbn() . '.jpg'}}" alt="{{$book->getName()}}"></td>
                                     <td class="book-detail">
-                                        <strong>Category:</strong> {{$book->category->getName()}}<br>
-                                        <strong>Author:</strong> {{$book->getAuthor()}}<br>
-                                        <strong>Description:</strong> {{$book->getDesc()}}<br>
-                                        <strong>Quantity left for borrow:</strong> {{$book->getQuantity()}}
+                                        <div class="show-detail"><strong>Category:</strong> {{$book->category->getName()}}</div>
+                                        <div class="show-detail"><strong>Author:</strong> {{$book->getAuthor()}}</div>
+                                        <div class="show-detail"><strong>Description:</strong> {{$book->getDesc()}}</div>
+                                        <div class="show-detail"><strong>Quantity left for borrow:</strong> {{$book->getQuantity()}}</div>
                                     </td>
                                 </tr>
                             </table>
@@ -41,6 +41,7 @@
                     </tr></thead>
                     <tbody>
                         @foreach ($viewData['data'] as $book)
+                        @if (!in_array($book->getId(), $viewData['borrow']) && $book->getQuantity() > 0)
                             <tr>
                                 <td class="table-cover"><span><img src="{{'https://covers.openlibrary.org/b/isbn/' . $book->getIsbn() . '.jpg'}}" alt="{{$book->getName()}}"></span></td>
                                 <td>
@@ -61,6 +62,7 @@
                                     </span></td>
                                 @endif
                             </tr>
+                        @endif
                         @endforeach
                     </tbody>
                 </table>
@@ -69,15 +71,18 @@
         <section class="side">
             @if (Auth::user() && Auth::user()->getRole() == 'client')
             <div class="data">
-                <h2 class="book-table-title borrow-title">Books borrowing by you</h2>
+                <h2 class="book-table-title borrow-title">Books you are borrowing</h2>
             <table class="book-table borrow-table">
+                @if (count($viewData['borrow']) > 0)
                 <thead><tr>
                     <th class="table-cover">Cover</th>
                     <th>Title and Author</th>
                     <th>Return</th>
                 </tr></thead>
+                @endif
                 <tbody>
-                    @foreach ($viewData['data'] as $book)
+                    @if (count($viewData['borrow']) > 0)
+                    @foreach ($viewData['borrow'] as $book)
                         <tr>
                             <td class="table-cover"><span><img src={{'https://covers.openlibrary.org/b/isbn/' . $book->getIsbn() . '.jpg'}} alt={{$book->getName()}}></span></td>
                             <td>
@@ -93,6 +98,9 @@
                             </span></td>
                         </tr>
                     @endforeach
+                    @else 
+                        <h3 style="text-align: center; margin: auto; margin-top:100px;">You have not borrowed any books</h3> 
+                    @endif
                 </tbody>
             </table>
             </div>
