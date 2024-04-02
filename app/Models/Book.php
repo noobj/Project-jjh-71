@@ -11,12 +11,20 @@ class Book extends Model
     public static function validate($request){
         $request->validate([
             "name" => "required|max:255",
-            "description" => "required",
             "isbn" => "required|numeric|gt:0",
             "quantity" => "required|numeric",
             "category" => "required"
         ]);
     }
+
+    protected $fillable = [
+        'title',
+        'description',
+        'isbn',
+        'quantity',
+        'category_id',
+        'author'
+    ];
 
     public function category()
     {
