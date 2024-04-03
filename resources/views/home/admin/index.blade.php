@@ -12,7 +12,13 @@
             <h2 class="book-title">{{$book->getName()}}</h2>
             <p><strong>Author: </strong>{{$book->getAuthor()}}</p>
             <p><strong>ISBN: </strong>{{$book->getIsbn()}}</p>
-            <p><strong>Category: </strong>{{$book->getCategory()}}</p>
+            <p><strong>Category: </strong>
+                @foreach ($viewData['categories'] as $category)
+                @if ($category->getId() == $book->getCategory())
+                    {{$category->getName()}}
+                @endif
+                @endforeach
+            </p>
             <p><strong>Current Quantity: </strong>{{$book->getQuantity()}}</p>
         </div>
         <a class="manage-btn" href="{{ route('home.admin.showManage', $book->getId()) }}"><strong>Manage</strong></a>

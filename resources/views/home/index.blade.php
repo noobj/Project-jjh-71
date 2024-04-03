@@ -3,7 +3,12 @@
     <article>
         <section class="main">
             <div class="data">
-                <h2 class="book-table-title">Books in Library</h2>
+                @if (Auth::user())
+                    <h2 class="book-table-title">Books Available for Borrow</h2>
+                @else 
+                    <h2 class="book-table-title">Books in Library</h2>
+                @endif
+                
                 @if (isset($_GET['action']) && $_GET['action'] == 'detail')
                     @foreach ($viewData['data'] as $book)
                         @if ($book->getId() == $_GET['id'])
@@ -17,7 +22,13 @@
                                 <tr>
                                     <td class="detail-image"><img class="detail-img" src="{{'https://covers.openlibrary.org/b/isbn/' . $book->getIsbn() . '.jpg'}}" alt="{{$book->getName()}}"></td>
                                     <td class="book-detail">
-                                        <div class="show-detail"><strong>Category:</strong> {{$book->category->getName()}}</div>
+                                        <div class="show-detail"><strong>Category: </strong> 
+                                            @foreach ($viewData['categories'] as $category)
+                                            @if ($category->getId() == $book->getCategory())
+                                                {{$category->getName()}}
+                                            @endif
+                                            @endforeach
+                                        </div>
                                         <div class="show-detail"><strong>Author:</strong> {{$book->getAuthor()}}</div>
                                         <div class="show-detail"><strong>Description:</strong> {{$book->getDesc()}}</div>
                                         <div class="show-detail"><strong>Quantity left for borrow:</strong> {{$book->getQuantity()}}</div>
@@ -30,19 +41,29 @@
                 @endif
                 
                 <table class="book-table">
+                    @if (Auth::user() && count($viewData['data']) > 0)
                     <thead><tr>
                         <th class="table-cover">Cover</th>
                         <th>Title and Author</th>
                         <th>Quantity</th>
-                        @if (Auth::user() && Auth::user()->getRole() == 'client')
-                            <th>Details</th>
-                            <th>Borrow</th>
-                        @endif
+                        <th>Details</th>
+                        <th>Borrow</th>
                     </tr></thead>
+                    @endif
+                    @if (!Auth::user() && count($viewData['allData']) > 0)
+                    <thead><tr>
+                        <th class="table-cover">Cover</th>
+                        <th>Title and Author</th>
+                        <th>Quantity</th>
+                    </tr></thead>
+                    @endif
+
                     <tbody>
-                        @foreach ($viewData['data'] as $book)
-                        @if (!in_array($book->getId(), $viewData['borrow']) && $book->getQuantity() > 0)
-                            <tr>
+                        @if (Auth::user())
+                            @if (count($viewData['data']) > 0)
+                                @foreach ($viewData['data'] as $book)
+                                @if ($book->getQuantity() > 0)
+                                <tr>
                                 <td class="table-cover"><span><img src="{{'https://covers.openlibrary.org/b/isbn/' . $book->getIsbn() . '.jpg'}}" alt="{{$book->getName()}}"></span></td>
                                 <td>
                                     <div class='author'><strong>{{$book->getName()}}</strong></div>
@@ -50,20 +71,38 @@
                                     <div>- {{$book->getAuthor()}} -</div>
                                 </td>
                                 <td>{{$book->getQuantity()}}</td>
-                                @if (Auth::user() && Auth::user()->getRole() == 'client')
-                                    <td><span class='detail'>
-                                        <a href='?action=detail&id={{$book->getId()}}'>Detail</a>
-                                    </span></td>
-                                    <td><span>
-                                        <form action="{{ route('home.borrow', $book->getId())}}" method="POST">
-                                            @csrf
-                                            <button class="borrow">Borrow</button>
-                                        </form>
-                                    </span></td>
+                                <td><span class='detail'>
+                                    <a href='?action=detail&id={{$book->getId()}}'>Detail</a>
+                                </span></td>
+                                <td><span>
+                                    <form action="{{ route('home.borrow', $book->getId())}}" method="POST">
+                                        @csrf
+                                        <button class="borrow">Borrow</button>
+                                    </form>
+                                </span></td>
+                                </tr>
                                 @endif
+                                @endforeach
+                            @else
+                            <h3 style="text-align: center; margin: auto; margin-top:100px;">No books is available for you to borrow</h3> 
+                            @endif
+                        @else
+                            @if (count($viewData['allData']) > 0)
+                            @foreach ($viewData['allData'] as $book)
+                            <tr>
+                                <td class="table-cover"><span><img src="{{'https://covers.openlibrary.org/b/isbn/' . $book->getIsbn() . '.jpg'}}" alt="{{$book->getName()}}"></span></td>
+                                <td>
+                                    <div class='author'><strong>{{$book->getName()}}</strong></div>
+                                
+                                    <div>- {{$book->getAuthor()}} -</div>
+                                </td>
+                                <td>{{$book->getQuantity()}}</td>
                             </tr>
+                            @endforeach
+                            @else
+                            <h3 style="text-align: center; margin: auto; margin-top:100px;">There is no books in the library right now</h3> 
+                            @endif
                         @endif
-                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -82,21 +121,25 @@
                 @endif
                 <tbody>
                     @if (count($viewData['borrow']) > 0)
-                    @foreach ($viewData['borrow'] as $book)
+                    @foreach ($viewData['borrow'] as $record)
+                    @foreach ($viewData['allData'] as $book)
+                        @if ($record->getBookId() == $book->getId())
                         <tr>
-                            <td class="table-cover"><span><img src={{'https://covers.openlibrary.org/b/isbn/' . $book->getIsbn() . '.jpg'}} alt={{$book->getName()}}></span></td>
+                            <td class="table-cover"><span><img src={{'https://covers.openlibrary.org/b/isbn/' . $book->getIsbn(). '.jpg'}} alt={{$book->getName()}}></span></td>
                             <td>
                                 <div class='author'><strong>{{$book->getName()}}</strong></div>
                                     
                                 <div>- {{$book->getAuthor()}} -</div>
                             </td>
                             <td><span>
-                                <form action="{{ route('home.return', $book->getId())}}" method="POST">
+                                <form action="{{ route('home.return', $record->getId())}}" method="POST">
                                     @csrf
                                     <button class='detail'>Return</button>
                                 </form>
                             </span></td>
                         </tr>
+                        @endif
+                    @endforeach
                     @endforeach
                     @else 
                         <h3 style="text-align: center; margin: auto; margin-top:100px;">You have not borrowed any books</h3> 
