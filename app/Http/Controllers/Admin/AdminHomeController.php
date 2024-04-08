@@ -13,6 +13,7 @@ class AdminHomeController extends Controller
     public function index() {
         $viewData = array();
         $viewData['data'] = Book::all();
+        $viewData['categories'] = Category::all();
         return view('home.admin.index')->with('viewData', $viewData);
     }
 

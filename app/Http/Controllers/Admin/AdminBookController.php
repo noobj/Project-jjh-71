@@ -39,7 +39,6 @@ class AdminBookController extends Controller
     public function manageBook(Request $request, $id) {  //switch case "action" & update or delete
         if ($request->input('action') == 'update') {
             Book::validate($request);
-
             $book = Book::findOrFail($id);
             $book->setName($request->input('name'));
             $book->setCategory($request->input('category'));
