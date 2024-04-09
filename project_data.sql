@@ -29,6 +29,6 @@ UNLOCK TABLES;
 
 
 LOCK TABLES `users` WRITE;
-INSERT INTO `users` VALUES (1,'admin','admin@gmail.com',NULL,'$2y$10$raZZ9ij5JtDAG8SzY.Qxe.o8RWM8ZK6OvxtogdzAlqVXnvAAdo4zm',NULL,'2024-03-31 05:40:46','2024-03-31 05:40:46','admin');
+INSERT INTO `users` VALUES (1,'admin','admin@gmail.com',NULL,'$2y$10$raZZ9ij5JtDAG8SzY.Qxe.o8RWM8ZK6OvxtogdzAlqVXnvAAdo4zm',NULL,'2024-03-31 05:40:46','2024-03-31 05:40:46','admin'),(2,'joe','joe@gmail.com',NULL,'$2y$10$raZZ9ij5JtDAG8SzY.Qxe.o8RWM8ZK6OvxtogdzAlqVXnvAAdo4zm',NULL,'2024-03-31 05:40:46','2024-03-31 05:40:46','client');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
